@@ -51,7 +51,6 @@ const AnimalForm = ({ errors, touched, values }) => {
           onChange={event => handleChange(event)}
         />
         <button>Submit!</button>
-        <button>Another button!</button>
       </form>
 
       <h4>Current Animals</h4>
