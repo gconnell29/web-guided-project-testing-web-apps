@@ -1,6 +1,8 @@
 import React from 'react';
 
-test("test 1", ()=> {
+
+
+it("test 1", ()=> {
     console.log("running our first test");
 });
 
