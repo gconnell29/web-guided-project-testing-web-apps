@@ -12,7 +12,8 @@ test("renders App header", ()=> {
 
     //Act: get our header DOM
     // const header = screen.queryByText("Add New Animal");
-    const header = screen.queryByTestId("header");
+    // const header = screen.queryByTestId("header");
+    const header = screen.queryByText("Add New Animal");
     console.log(header);
 
     //Assert: Make sure that the header actually exists
