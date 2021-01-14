@@ -25,6 +25,9 @@ test("renders without errors", ()=>{
     
     //Assert:
     // Species name is on the screen.
-    const newAnimal = screen.findByText("Grizzly Bear");
-    // expect(newAnimal).toBeInTheDocument();
+    const newAnimalPromise = screen.findByText("Grizzly Bear");
+    newAnimal
+        .then((newAnimal)=>{
+            expect(newAnimal).toBeInTheDocument();
+        });
 });
