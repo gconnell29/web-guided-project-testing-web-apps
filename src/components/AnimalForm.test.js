@@ -26,5 +26,5 @@ test("renders without errors", async () =>{
     //Assert:
     // Species name is on the screen.
     const newAnimal = await screen.findByText("Grizzly Bear");
-    expect(newAnimal).toBeInTheDocument();    
+    expect(newAnimal).toBeInTheDocument();  
 });
