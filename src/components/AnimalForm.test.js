@@ -8,7 +8,7 @@ test("renders without errors", ()=>{
 
     //Act:
     //  1. Get our species, age and notes input fields.
-    const speciesInput = screen.
+    const speciesInput = screen.queryBy
     //  2. Type values into our input fields.
     //  3. Push the submit button.
     
