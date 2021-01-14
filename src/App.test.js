@@ -20,5 +20,4 @@ test("renders App header", ()=> {
 
     expect(header).not.toBeFalsy();
     expect(header).not.toBeNull();
-    
 });
