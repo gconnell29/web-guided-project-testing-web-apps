@@ -9,7 +9,10 @@ test("renders App without errors", ()=>{
 test("renders App header", ()=> {
     //Arrange: render our App component
     render(<App />);
-    
+
     //Act: get our header DOM
+    const header = screen.getByText("Add New Animal");
+    console.log(header);
+
     //Assert: Make sure that the header actually exists
 });
