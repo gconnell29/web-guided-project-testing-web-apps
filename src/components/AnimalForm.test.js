@@ -9,8 +9,10 @@ test("renders without errors", ()=>{
     //Act:
     //  1. Get our species, age and notes input fields.
     const speciesInput = screen.getByLabelText(/species/i);
-    console.log(speciesInput);
+    const ageInput = screen.getByLabelText(/age/i);
+    const notesInput = screen.getByLabelText(/notes/i);
     
+
     //  2. Type values into our input fields.
     //  3. Push the submit button.
     
