@@ -15,7 +15,10 @@ test("renders without errors", ()=>{
     const notesInput = screen.getByLabelText(/notes/i);
 
     //  2. Type values into our input fields.
-    
+    userEvent.type(speciesInput, "Grizzly Bear");
+    userEvent.type(ageInput, "33");
+    userEvent.type(notesInput, "the cutest!!!!!!");
+
     //  3. Push the submit button.
     
     //Assert:
