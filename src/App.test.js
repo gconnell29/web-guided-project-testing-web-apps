@@ -11,7 +11,7 @@ test("renders App header", ()=> {
     render(<App />);
 
     //Act: get our header DOM
-    const header = screen.queryByText("Add Old Animal");
+    const header = screen.findByText("Add Old Animal");
     console.log(header);
 
     //Assert: Make sure that the header actually exists
