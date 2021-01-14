@@ -17,4 +17,5 @@ test("renders App header", ()=> {
 
     //Assert: Make sure that the header actually exists
     expect(header).toBeTruthy();
+    
 });
