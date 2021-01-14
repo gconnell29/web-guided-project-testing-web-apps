@@ -21,6 +21,7 @@ test("renders without errors", ()=>{
 
     //  3. Push the submit button.
     const button = screen.getByRole('button');
+    console.log(button);
     
     //Assert:
     // Species name is on the screen.
