@@ -8,6 +8,8 @@ test("renders App without errors", ()=>{
 
 test("renders App header", ()=> {
     //Arrange: render our App component
+    render(<App />);
+    
     //Act: get our header DOM
     //Assert: Make sure that the header actually exists
 });
