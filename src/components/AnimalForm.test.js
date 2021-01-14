@@ -20,6 +20,7 @@ test("renders without errors", ()=>{
     userEvent.type(notesInput, "the cutest!!!!!!");
 
     //  3. Push the submit button.
+    const button = screen.getByRole('button');
     
     //Assert:
     // Species name is on the screen.
