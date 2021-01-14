@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import AnimalForm from './AnimalForm';
 
-test("renders without errors", async () =>{
+test("renders without errors", async () => {
     //Arrage
     render(<AnimalForm/>);
 
@@ -26,5 +26,5 @@ test("renders without errors", async () =>{
     //Assert:
     // Species name is on the screen.
     const newAnimal = await screen.findByText("Grizzly Bear");
-    expect(newAnimal).toBeInTheDocument();  
+    expect(newAnimal).toBeInTheDocument();
 });
