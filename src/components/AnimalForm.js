@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-const AnimalForm = ({ errors, touched, values }) => {
+// const AnimalForm = ({ errors, touched, values }) => {
+const AnimalForm = () => {
   const [animals, setAnimals] = useState([
     {
       species: "Lion",
