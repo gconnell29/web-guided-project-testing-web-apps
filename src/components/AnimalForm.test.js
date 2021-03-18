@@ -25,6 +25,6 @@ test("AnimalForm adds an animal when form is filled and submitted", () => {
 
   const wombat = screen.getByText("Wombat");
   expect(wombat).toBeDefined();
-  expect(wombat).not.toBeTruthy();
+  expect(wombat).toBeTruthy();
 })
 
