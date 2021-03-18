@@ -17,6 +17,10 @@ test("AnimalForm adds an animal when form is filled and submitted", () => {
 
   const speciesInput = screen.getByLabelText(/species/i);
 
+  userEvent.type(speciesInput, "Wombat");
+
+  const submitButton = screen.getByText(/submit/i);
+
 
 })
 
