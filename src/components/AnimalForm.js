@@ -33,7 +33,7 @@ const AnimalForm = ({ errors, touched, values }) => {
           id="species"
           type="text"
           name="species"
-          onChange={event => handleChange(event)}
+          onChange={handleChange}
         />
         <label htmlFor="age">Age:</label>
         <input
