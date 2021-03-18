@@ -4,5 +4,5 @@ import App from './App';
 
 
 test("App render", () => {
-  render(<App />);
+  render(<App />); // Arrange, Act, Assert!
 })
