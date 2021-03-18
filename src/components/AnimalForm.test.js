@@ -22,5 +22,7 @@ test("AnimalForm adds an animal when form is filled and submitted", () => {
   const submitButton = screen.getByText(/submit/i);
 
   userEvent.click(submitButton);
+
+  expect(screen.getByText(/wombat/i)).toBeDefined();
 })
 
