@@ -8,7 +8,7 @@ test("AnimalForm renders", () => {
 })
 
 test("AnimalForm renders error message when there are errors", () => {
-  render(<AnimalForm />)// errors={["this is an error"]} />)
+  expect(render(<AnimalForm />)).toThrow();
   screen.getByText(/there are errors/i)
 });
 
@@ -25,6 +25,6 @@ test("AnimalForm adds an animal when form is filled and submitted", () => {
 
   const wombat = screen.getByText("Wombat");
   expect(wombat).toBeDefined();
-  expect(wombat).toBeTruthy();
+  expect(wombat).toTh
 })
 
