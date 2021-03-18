@@ -27,6 +27,7 @@ const AnimalForm = ({ errors, touched, values }) => {
 
   return (
     <div className="animal-form">
+      {errors.length > 0 && <div style={{ color: 'red' }}>there are errors!!!!!!</div>}
       <form onSubmit={event => handleSubmit(event)}>
         <label htmlFor="species">Species:</label>
         <input
