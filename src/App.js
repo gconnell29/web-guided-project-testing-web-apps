@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>Add New Animal</h1>
-      <AnimalForm />
+      <AnimalForm errors={[]} />
     </div>
   );
 }
