@@ -8,7 +8,7 @@ test("AnimalForm renders", () => {
 })
 
 test("AnimalForm renders error message when there are errors", () => {
-  expect(render(<AnimalForm />)).toThrow();
+  expect(() => render(<AnimalForm />)).toThrow();
   // screen.getByText(/there are errors/i)
 });
 
