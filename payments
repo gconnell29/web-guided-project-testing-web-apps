@@ -1,0 +1,826 @@
+commit;
+\q
+begin;
+update reservations set start_date='2020-11-06' where id=11818;
+rollback;
+\q
+\x
+select * from reservations where rid=11818;
+select * from reservations where id=11818;
+begin;
+update reservations set start_date='2020-11-06' where id=11818;
+commit;
+\q
+\dt
+select * from payments where reservation_id=11818;
+\d transfers;
+select * from transfers where reservation_id=11818;
+select * from reservations where id=11818;
+begin;
+update transfers set scheduled_transfer_date='2020-12-06' where id in (66754,66753);
+update transfers set scheduled_transfer_date='2021-01-06' where id in (66790,66789);
+commit;
+select * from reservations where id=11818;
+select * from transfers where reservation_id=11818;
+select * from payments where reservation_id=11818;
+select id, paid_period_start_date, paid_period_end_date from payments where ;
+begin;
+update payments paid_period_start_date='2020-11-06', paid_period_end_date='2020-12-06' where id=35809;
+update payments set paid_period_start_date='2020-11-06', paid_period_end_date='2020-12-06' where id=35809;
+rollback;
+begin;
+update payments set paid_period_start_date='2020-11-06', paid_period_end_date='2020-12-06' where id=35809;
+update payments set paid_period_start_date='2020-12-06', paid_period_end_date='2021-01-06' where id=35830;
+commit;
+\q
+\x
+select * from reservations where id=11859;
+select * from payments where reservation_id=11859;
+select * from reservations where id=11913 ;
+clear
+;
+select * from users where id=68554;
+begin;
+update users set phone_verified='t' where id=68554;
+commit;
+ select * from payments where reservation_id=8400;
+ select id,last_payment,amount from payments where reservation_id=8400;
+\d payments
+ select id,last_payment,total from payments where reservation_id=8400;
+ select id,last_payment,total,paid_period_start_date from payments where reservation_id=8400;
+begin;
+update payments set last_payment='t' where id in (35923,35922,35919);
+commit;
+ select id,last_payment,total,paid_period_start_date,created_at from payments where reservation_id=8400;
+begin;
+update payments set last_payment='t' where id in (35923,35922,35919,26582);
+commit;
+ select id,last_payment,total,paid_period_start_date,created_at from payments where reservation_id=8400;
+ select id,last_payment,total,paid,paid_period_start_date,created_at from payments where reservation_id=8400;
+exit
+;
+/q
+;
+\q
+\d payments
+\d reservation
+\d reservations
+select distinct status from reservations;
+ select p.id as payment_id,p.reservation_id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f';
+ select p.id as payment_id,p.reservation_id,p.paid_period_start_date,r.status from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f';
+select paid_period_start_date, from payments where reservation_id = 3229;
+ select p.id as payment_id,p.capture,p.reservation_id,p.paid_period_start_date,r.status from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f';
+ select p.id as payment_id,p.capture,p.paid,p.reservation_id,p.paid_period_start_date,r.status from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f';
+select payment_date,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where rid=3229;
+select payment_date,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id=3229;
+select payment_date,p.reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id=3229;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id=3229;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id in (select distinct r.reservation_id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f');
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f');
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment from payments where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;
+\d reservation
+\d reservations
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment,moved_out_confirmed_by_renter,moved_out_confirmed_by_host from payments where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;
+select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;
+copy (select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date;) to '/tmp/reservations.csv' with csv;
+copy (select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+\copy (select payment_date,reservation_id,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+\d reservation
+\d reservations
+\copy (select r.updated_at,payment_date,reservation_id,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+\copy (select r.updated_at,payment_date,reservation_id,r.status,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+\copy (select r.updated_at,payment_date,p.p.id as payment_id,reservation_id,r.status,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+\copy (select r.updated_at,payment_date,p.id as payment_id,reservation_id,r.status,paid_period_start_date,paid_period_end_date,p.total,paid,void,refunded,last_payment,r.moved_out_confirmed_by_renter,r.moved_out_confirmed_by_host from payments p left join reservations r on p.reservation_id = r.id where reservation_id in (select distinct r.id from reservations r left join payments p on p.reservation_id=r.id where r.status not in ('Active','Pending','Approved') and p.paid = 'f' and p.void = 'f' and p.refunded = 'f' and last_payment = 'f') order by reservation_id,paid_period_start_date) to '/tmp/reservations.csv' with csv;
+exit
+;
+\q
+\x
+select * from payments where id = 23247;
+select * from payments where reservation_id=2853;
+begin;
+update payments set void = 't' where id = 23247;
+rollback;
+select from payments where id in (23247,28008,30981,31155,34698);
+select void from payments where id in (23247,28008,30981,31155,34698);
+select id,void from payments where id in (23247,28008,30981,31155,34698);
+update payments set void='t' where id in (23247,28008,30981,31155,34698);
+commit;
+select * from payment where id in (36695, 36215)
+;
+select * from payments where id in (36695, 36215)
+;
+select 18.5+5.43 from payments;
+select 18.5+5.43 from payments limit 1;
+select 17.48+5.43 from payments limit 1;
+select 18.5+5.52 from payments limit 1;
+begin;
+update payments set refund_amount = payments.total where id in (36215, 36695);
+select refund_amount,total from payments wher id in (36215, 36695);
+select refund_amount,total from payments where id in (36215, 36695);
+rollback;
+begin;
+update payments set refund_amount = payments.total where id in (36215, 36695);
+select refund_amount,total from payments where id in (36215, 36695);
+commit;
+\q
+\x
+\d conversations
+\dt messages
+\d messages
+select count(*) from messages where user_id=69169;
+select count(*) from conversations where sender_id=69169 OR recipient_id=69169;
+select user_id from conversations limit 10;
+\d conversation_users;
+select * from conversation_users where user_id=69169;
+select user_id from conversation_users limit 10;
+select user_id from conversation_users order by user_id desc limit 10;
+select * from users wehr id=50139;
+select * from users where id=50139;
+select * from users where id=50526;
+select count(*) from conversations;
+select count(*) from messages;
+\d conversations
+select * from conversation_users where id = 41486;
+select * from conversations where sender_id = 41486 OR recipient_id = 41486;
+select * from conversation_users where user_id = 41486;
+\d users
+\d listings
+select count(*) from users u left join listings l on u.id = l.listing_id where u.is_host != 't';
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host != 't';
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host != 't' and l.status = 'Published';
+select distinct status from listings;
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host != 't' and l.status <> 'Draft';
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' and l.status <> 'Draft';
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' and l.status <> 'Draft' group by l.status;
+select count(l.status) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' and l.status <> 'Draft' group by l.status;
+select l.status,count(l.status) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' and l.status <> 'Draft' group by l.status;
+select l.status,count(l.status) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' group by l.status;
+select l.status,count(l.status) from users u left join listings l on u.id = l.user_id where u.is_host <> 't' group by l.status;
+select count(*) from users u left join listings l on u.id = l.user_id where u.is_host != 't';
+\d listings
+select count(*) from listings where (state != "" and state is not null) and (city is null or city = "");
+select count(*) from listings where state is not null and city is null;
+select count(*) from listings where city is null;
+select count(*) from listings where city = "";
+select count(*) from listings where (state != '' and state is not null) and (city is null or city = '');
+select status,count(status) from listings where (state != '' and state is not null) and (city is null or city = '') group by status;
+select status,listing_id from listings where (state != '' and state is not null) and (city is null or city = '') limit 5;
+select status,id from listings where (state != '' and state is not null) and (city is null or city = '') limit 5;
+select status,id from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 5;
+select * from listings where id = 20163;
+select address from listings where address != '' order by id desc limit 5;
+select id,address from listings where address != '' order by id desc limit 5;
+select id,city,state,address from listings where address != '' order by id desc limit 5;
+select id,status,city,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 5;
+select id,status,city,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select count(*),id,status,city,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select count(*) from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select count(*) from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select id,user_id,status,city,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select id,user_id,status,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+\copy (select id,user_id,status,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;) to '/tmp/listings_without_cities.csv' with csv;
+\copy (select id,user_id,status,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15) to '/tmp/listings_without_cities.csv' with csv;
+\copy (select id,user_id,status,state,address from listings where (state != '' and state is not null) and (city is null or city = '')) to '/tmp/listings_without_cities.csv' with csv;
+select l.user_id,u.created_at,l.id,l.created_at,status,state,address from listings where (state != '' and state is not null) and (city is null or city = '') and status = 'Published' limit 15;
+select l.user_id,u.created_at,l.id,l.created_at,status,state,address from listings left join users u on l.user_id = u.id where (l.state != '' and l.state is not null) and (l.city is null or l.city = '') and l.status = 'Published' limit 15;
+select l.user_id,u.created_at,l.id,l.created_at,status,state,address from listings l left join users u on l.user_id = u.id where (l.state != '' and l.state is not null) and (l.city is null or l.city = '') and l.status = 'Published' limit 15;
+\copy (select l.user_id,u.created_at,l.id,l.created_at,status,state,address from listings l left join users u on l.user_id = u.id where (l.state != '' and l.state is not null) and (l.city is null or l.city = '')) to '/tmp/listings_without_cities.csv' with csv;
+select * from users where id=12688;
+select * from users where id = 69722;
+select * from listings where id = 45464;
+q
+;
+select count(*) from users where is_host=false and is_renter=false;
+select * from payments where id=29809;
+begin;
+update payments set void='t' where id=29809;
+commit;
+\q
+\x
+\d listings
+select distinct state from listings;
+select distinct status from listings;
+\d users
+select distinct status from listings;
+\d listings
+select count(*) from listings l left join users u on l.user_id=u.id where l.status = 'Draft';
+select count(*) from listings l left join users u on l.user_id=u.id where l.status = 'Draft' and u.photo_id_verified = 't';
+select l.id from listings l left join users u on l.user_id=u.id where l.status = 'Draft' and u.photo_id_verified = 't';
+select l.id from listings l left join users u on l.user_id=u.id where l.status = 'Draft' and u.photo_id_verified = 't';
+select count(*) from users r left join listings l on u.id=l.listing_id where;
+select count(*) from users r left join listings l on u.id=l.listing_id group by l.user_id;;
+select count(*) from users u left join listings l on u.id=l.listing_id group by l.user_id;;
+select count(*) from users u left join listings l on u.id=l.user_id group by l.user_id;;
+select u.idcount(*) from users u left join listings l on u.id=l.user_id group by l.user_id;;
+select u.id,count(*) from users u left join listings l on u.id=l.user_id group by l.user_id;;
+select l.user_id,count(*) from users u left join listings l on u.id=l.user_id group by l.user_id;
+select l.user_id,count(*) from users u left join listings l on u.id=l.user_id group by l.user_id having count(*) > 1;
+select l.user_id,count(*) from users u left join listings l on u.id=l.user_id group by l.status having count(*);
+select l.user_id,count(*) from users u left join listings l on u.id=l.user_id group by l.status;
+select l.user_id, l.status,count(*) from users u left join listings l on u.id=l.user_id group by l.user+_id,l.status;
+select l.user_id, l.status,count(*) from users u left join listings l on u.id=l.user_id group by l.user_id,l.status;
+select distinct l.user_id from listings where l.status = 'Draft';
+select distinct user_id from listings where status = 'Draft';
+selct distint user_id from listings where status <> 'Draft' and user_id not in (select distinct user_id from listings where status = 'Draft');
+select distint user_id from listings where status <> 'Draft' and user_id not in (select distinct user_id from listings where status = 'Draft');
+select distinct user_id from listings where status <> 'Draft' and user_id not in (select distinct user_id from listings where status = 'Draft');
+select distinct count(user_id) from listings where status <> 'Draft' and user_id not in (select distinct user_id from listings where status = 'Draft');
+select distinct count(user_id) from listings where status <> 'Draft' and user_id not in (select distinct user_id from listings where status = 'Draft');;
+select distinct count(user_id) from listings where status <> 'Draft' and status <> 'Archived' and user_id not in (select distinct user_id from listings where status = 'Draft');
+select distinct user_id from listings where status <> 'Draft' and status <> 'Archived' and user_id not in (select distinct user_id from listings where status = 'Draft') order desc limit 5;;
+select distinct user_id from listings where status <> 'Draft' and status <> 'Archived' and user_id not in (select distinct user_id from listings where status = 'Draft') order by user_id desc limit 5;;
+select * from listings where user_id = 70039;
+select distinct count(user_id) from listings where status <> 'Draft' and status <> 'Archived' and user_id in (select distinct user_id from listings where status = 'Draft');
+select distinct user_id from listings where status <> 'Draft' and status <> 'Archived' and user_id in (select distinct user_id from listings where status = 'Draft');
+select * from listings where user_id=7403;
+select distinct user_id from listings where status = 'Published' and user_id in (select distinct user_id from listings where status = 'Draft');
+select * from listings where user_id=7403 and status = 'Draft';
+select distinct user_id from listings where status = 'Published' and user_id in (select distinct user_id from listings where status = 'Draft');
+select * from listings where user_id=1202 and status = 'Draft';
+select * from listings where user_id=1202 and status = 'Published';
+select * from listings where user_id=1202 and status = 'Draft' limit 1;
+select * from listings where id = 38743;
+select * from listings where id = 45066;
+select * from payments where id = 35608;
+begin;
+update payments set void = 't' where id = 35608;
+select * from payments where id = 35608;
+commit;
+select u.id from users u left join listings l on u.id = l.user_id where u.is_host = 't';
+select count(u.id) from users u left join listings l on u.id = l.user_id where u.is_host = 't';
+select count(l.user_id) from listings l left join users u on l.user_id = u.id where u.is_host = 't';
+\d reservations
+select count(r.user_id) from reservations r left join users u on r.user_id = u.id where u.is_renter = 't';
+select count(u.id) from users u where u.is_renter = 't';
+select count(u.id) from users u where u.is_host = 't' and u.is_renter = 't';
+select count(u.id) from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r left join users u on r.user_id = u.id) and u.id in (select l.user_id from listings l left join users u on l.user_id = u.id);
+select count(u.id) from users u where u.is_host = 't';
+select count(u.id) from users u where u.is_renter = 't';
+select count(u.id) from users u where u.is_renter = 't' and u.is_host = 't';
+select count(u.id) from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l);
+select count(u.id) from users where u.is_host = 'f' and u.is_renter = 'f';
+select count(u.id) from users u where u.is_host = 'f' and u.is_renter = 'f';
+select count(u.id) from users u where u.is_host = 'f' and u.is_renter = 'f' and u.id not in (select r.user_id from reservations r) and u.id not in (select l.user_id from listings l);
+select count(u.id) from users u where u.is_host = 'f' and u.is_renter = 'f' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l);
+select count(*) from users;
+select count(*) from users where is_host='t' and is_renter='f';
+select count(*) from users where is_host='f' and is_renter='t';
+select count(*) from users where is_host='t' and is_renter='t';
+select count(*) from users where is_host='f' and is_renter='f';
+select u.id,u.created_at from users u where u.is_host = 'f' and u.is_renter = 'f' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l) order by created_at desc limit 1;
+select u.id,u.created_at from users u where u.is_host = 'f' and u.is_renter = 'f' and u.id not in (select r.user_id from reservations r) and u.id not in (select l.user_id from listings l) order by created_at desc limit 1;
+select count(u.id) from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l);
+select u.id, created_at from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l) order by created_at desc;
+select u.id, created_at from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l) order by created_at desc limit 1;
+select count(*) from users where is_host='t' and is_renter='t';
+select created_at from users where is_host='t' and is_renter='t' order by created_at limit 1;
+select created_at from users where is_host='t' and is_renter='t' order by created_at desc limit 1;
+select u.id,u.created_at from users u where u.is_host = 'f' and u.is_renter = 'f' and u.id not in (select r.user_id from reservations r) and u.id not in (select l.user_id from listings l) order by created_at limit 1;
+select u.id, created_at from users u where u.is_host = 't' and u.is_renter = 't' and u.id in (select r.user_id from reservations r) and u.id in (select l.user_id from listings l) order by created_at limit 1;
+select created_at from users where is_host='t' and is_renter='t' order by created_at limit 1;
+select id,created_at from users where is_host='f' and is_renter='f' order by created_at;
+select id,created_at from users where is_host='f' and is_renter='f' order by created_at limit 1;
+select id,created_at from users where is_host='f' and is_renter='f' order by created_at desc limit 1;
+select id,void from payments where id in (29778,33614)
+;
+begin;
+rollback;
+select count(*) from users u left join listings l on u.id = l.user_id where id u.in (select user_id from listings where status = 'Draft') and u.id in (select user_id from listings wheer status <> 'Draft');
+select count(*) from users u left join listings l on u.id = l.user_id where id u.id (select user_id from listings where status = 'Draft') and u.id in (select user_id from listings wheer status <> 'Draft');
+select count(*) from users u left join listings l on u.id = l.user_id where u.id in (select user_id from listings where status = 'Draft') and u.id in (select user_id from listings wheer status <> 'Draft');
+select count(*) from users u left join listings l on u.id = l.user_id where u.id in (select user_id from listings where status = 'Draft') and u.id in (select user_id from listings where status <> 'Draft');
+select count(*) from users u left join listings l on u.id = l.user_id where u.id in (select user_id from listings where status = 'Draft') and u.id in (select user_id from listings where status = 'Published');
+select id,void from payments where id in (29778,33614);
+begin;
+update payments set void = 't' where id in (29778,33614);
+commit;
+select id,void from payments where id in (29778,33614);
+\q
+\x
+select * from listings where id = 8570
+;
+update listings set status = 'Draft' where id = 8570;
+update users set email_verified = 'f' where id = 8302;
+\d users
+update users set confirmed_at = null where id = 8302;
+update users set photo_id_verified = 'f' where id = 8302;
+select * from listings where id = 8570;
+select * from listings where id = 8570
+;
+select * from users where id = 8302;
+update users set phone_verified = 'f' where id = 8302;
+select nexmo_verification_id,phone_verified from users where id = 8302;
+select nexmo_verification_id,phone_verified from users where id = 8302;
+select * from listings where id = 8570;
+select * from listings where id = 8570
+;;
+\q
+\q
+select void,id,reservation_id from payments where id in (34041,35608);
+select * from payments where reservation_id = 11156;
+\q
+\q
+select * from reservations where id = 12731;
+\x
+select * from reservations where id = 12731;
+select * from reservations where id = 12736;
+select * from payments where reservation_id = 12736;
+select * from payments where reservation_id = 12736;
+select * from payments where reservation_id = 12736;
+select * from payments where reservation_id = 12736;
+select * from transfers where payment_id = 38898;
+\d users
+select * from users where id = 1221;
+select stripe_vendor_account_id from users where id in (1221,1230,5359,8378,13542,17048,19186,29569,31921,45123,47310,47530,49217,49541,52060,53423,57424,58021,58248,58673,59505,60764,60912,61991,64763,64811);
+select stripe_vendor_account_id from users where id in (1221,1230,5359,8378,13542,17048,19186,29569,31921,45123,47310,47530,49217,49541,52060,53423,57424,58021,58248,58673,59505,60764,60912,61991,64763,64811) and stripe_vendor_account_id is not null;
+select id,stripe_vendor_account_id from users where id in (1221,1230,5359,8378,13542,17048,19186,29569,31921,45123,47310,47530,49217,49541,52060,53423,57424,58021,58248,58673,59505,60764,60912,61991,64763,64811) and stripe_vendor_account_id is not null;
+select * from reservations where id = 2867;
+select * from payments where reservation_id = 2867;
+select * from payments where reservation_id = 2867 order by id desc;
+select * from payments where reservation_id = 29281;
+selct * from payments where id = 29281;
+select * from payments where id = 29281;
+select * from reservations where id = 12736;
+select * from payments here reservation_id = 12736;
+select * from payments where reservation_id = 12736;
+selct * from transfers where payment_id = 38898;
+select * from transfers where payment_id = 38898;
+select * from payments where id = 38898;
+\d reservations
+select l.user_id as host_user_id, r.user_id as renter_user_id, r.total from reservations r left join listings l on r.listing_id = l.id where r.id = 1004;
+\d reservations
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount from reservations r left join listings l on r.listing_id = l.id where r.id = 1004;
+select * from payments where reservation_id = 1004 order by id desc limit 2;
+select * from payments where reservation_id = 1004 order by id desc;
+select * from payments where reservation_id = 1004 and paid_period_start_date <> paid_period_end_date order by id desc limit 1;
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id = 1004;
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id = 1004 order by p.id desc limit 1;
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id = 1004 order by p.id desc limit 1;
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id in (1004,10850,80) order by p.id desc limit 1;
+select l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, p.id as payment_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.paid_period_start_date <> p.paid_period_end_date and r.id in (1004,10850,80) order by p.id desc limit 3;
+selct * from payments where id = 32884;
+select * from payments where id = 32884;
+select r.id as reservation_id, p.id as payment_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description not like "%Late Fee%" and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, p.id as payment_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description not like '%Late Fee%' and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, p.id as payment_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, r.status, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004,10850,80) order by p.id desc limit 3;
+select * from users where id = 1182;
+select * from payment_job_payment_attempts where id = 90065;
+select * payments where id = 29163;
+select * from payments where id = 29163;
+insert into payments(reservation_id,user_id,paid_period_start_date,paid_period_end_date,total,price,service_fee,processing_fee,created_at,updated_at) values(80,1410,'2020-11-14 08:00:00','2020-12-14 00:00:00',51.75,45.0,6.75,1.81,NOW(),NOW());
+select * from payments where reservations_id = 80 order by id limit 1;
+select * from payments where reservation_id = 80 order by id limit 1;
+select * from payments where reservation_id = 80 order by id desc limit 1;
+select * from payments where reservation_id = 80 order by id desc limit 3;
+select * from payments where reservation_id = 80 and created_at > '2021-01-06 :00:00';
+select * from users where;
+\d users
+\d users
+select * from users where id = 1410;;
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40535,80,1182,'2020-12-14 00:00:00',6.75,NOW(),NOW());
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40535,80,1207,'2020-12-14 00:00:00',43.19,NOW(),NOW());
+update payment_job_payment_attempts set charged = 't', scheduled_next = 't' where id = 90065;
+select * from transfers where payment_id = 40535;
+select * from payment_job_payment_attempts where id = 90065;
+select r.id as reservation_id, r.status, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004,10850,80) order by p.id desc limit 3;
+insert into payments(reservation_id,user_id,paid_period_start_date,paid_period_end_date,total,price,service_fee,processing_fee,created_at,updated_at) values(10850,55895,'2020-11-30 08:00:00','2020-12-31 00:00:00',58.16,50.56,7.6,1.73,NOW(),NOW());
+select * from payments where reservations_id = 10850 order by id desc limit 1;
+select * from payments where reservation_id = 10850 order by id desc limit 1;
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40537,10850,1182,'2020-12-31 00:00:00',7.6,NOW(),NOW());
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40537,10850,7635,'2020-12-31 00:00:00',48.83,NOW(),NOW());
+update reservations set status = 'Active' where id = 10850;
+select * from payments where reservation_id = 10850 order by id desc limit 1;
+select r.id as reservation_id, r.status, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004,10850,80) order by p.id desc limit 3;
+select r.id as reservation_id, r.status, l.user_id as host_user_id, r.user_id as renter_user_id, price_at_reservation, first_charge_amount, p.total, p.price, p.service_fee, p.processing_fee from reservations r left join listings l on r.listing_id = l.id left join payments p on p.reservation_id = r.id where p.description is null and r.id in (1004) order by p.id desc limit 1;
+insert into payments(reservation_id,user_id,paid_period_start_date,paid_period_end_date,total,price,service_fee,processing_fee,created_at,updated_at) values(1004,1008,'2020-11-27 08:00:00','2020-12-27 00:00:00',225.4,196.0,29.4,6.84,NOW(),NOW());
+select * from payments where reservation_id = 1004 order by id desc limit 1;
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40538,1004,1182,'2020-12-27 00:00:00',29.4,NOW(),NOW());
+insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40538,1004,5062,'2020-12-27 00:00:00',189.16,NOW(),NOW());
+select * from payment_job_payment_attempts where id = insert into transfers(payment_id,reservation_id,destination_user_id, scheduled_transfer_date,transfer_amount,created_at,updated_at) values(40538,1004,1182,'2020-12-27 00:00:00',29.4,NOW(),NOW());
+select * from payment_job_payment_attempts where id = 87297;
+select * from payments where id = 30344;
+update payment_job_payment_attempts set charged = 't', scheduled_next = 't' where id = 87297;
+select * from payments where id = 13374;
+update payments set void = 't' where id = 13374;
+select id,stripe_vendor_account_id from users where id in (1221,1230,5359,8378,13542,17048,19186,29569,31921,45123,47310,47530,49217,49541,52060,53423,57424,58021,58248,58673,59505,60764,60912,61991,64763,64811) and stripe_vendor_account_id is not null;
+select id from users where id in (1221,1230,5359,8378,13542,17048,19186,29569,31921,45123,47310,47530,49217,49541,52060,53423,57424,58021,58248,58673,59505,60764,60912,61991,64763,64811) and stripe_vendor_account_id is not null;
+\d users
+selct * from users where id =  50108;
+select * from users where id =  50108;
+sleect * from payments where id = 33342;
+select * from payments where id = 33342;
+select * from transfers where payment_id = 33342;
+\d listings
+select distinct state from listings;
+select distinct status from listings;
+exit
+\q
+\x
+\d listings
+select distinct status from listings;
+\q
+\x
+\d photos
+\d users
+exit
+;
+\q
+\x
+\d transers;
+\d transfers;
+select * from transfers where id = 40535;
+select * from transfers where payment_id = 40535;
+\q
+\x
+select * from reservations where id = 13455;
+begin;
+rollback;
+select * from transfers where reservation_id = 13455;
+select * from transfers where reservation_id = 13455;
+select * from payments where reservation_id = 13455;
+select * from payments where reservation_id = 13455 order by paid_period_start_date desc;
+select * from reservation where id = 13455;
+select * from reservations where id = 13455;
+\dt
+\q
+select * from users wehre id = 84354;
+select * from users where id = 84354;
+\x
+select * from users where id = 84354;
+\q
+\x
+\d listings
+\q
+\x
+select * from reservations where id = 14471;
+now()
+;
+select now() from users;
+select now() from users limit 1;
+exit
+;
+\q
+select * from users where email like 'reservations%@neighbor.com';
+select id,email from users where email like 'reservations%@neighbor.com';
+update users set reservation_admin='t' where email like 'reservations%@neighbor.com';
+exit
+\w
+\q
+select * from users where email like 'reservations%@neighbor.com';
+select id,email from users where email like 'reservations%@neighbor.com';
+update users set reservation_admin='t' where email like 'reservations%@neighbor.com';
+\q
+\q
+select count(*) from listings 
+where id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and id in (select listing_id from reservations);
+\x
+\d payments
+select sum(total) from payments where void = 'f' and paid = 't' and refunded = 'f';
+select count(*) from listings 
+where id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ); 
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+where id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+  ;
+);
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+  );
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and status = 'Published' 
+  and user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l left join reservations r on l.id = r.listing_id 
+where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l left join reservations r on l.id = r.listing_id where r.id is not null
+  and l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l right join reservations r on l.id = r.listing_id where r.id is not null
+  and l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  );
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and id in (select listing_id from reservations);
+select count(*) from listings l
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+select count(*) from listings l right join reservations r on l.id = r.listing_id 
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+select count(*) from reservations;
+select count(*) from listings l left join reservations r on l.id = r.listing_id 
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) ;
+select count(*) from listings l left join reservations r on l.id = r.listing_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  group by l.id;
+select distinct l.id, count(l.id) from listings l left join reservations r on l.id = r.listing_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+select distinct l.id, count(l.id) from listings l left join reservations r on l.id = r.listing_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  group by l.id;
+select count(l.id) from listings l left join reservations r on l.id = r.listing_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+select count(l.id) from listings l left join reservations r on l.id = r.listing_id left join r.id = p.reservation_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select count(l.id) from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select count(l.id) from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select sum(p.total) from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select sum(p.total) from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+\d payments
+select sum(p.total),sum(service_fee) from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select sum(p.total)as total, sum(service_fee) as neighbor from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select sum(p.total)as total, sum(service_fee) as neighbor from listings l left join reservations r on l.id = r.listing_id left join payments p on r.id = p.reservation_id
+  where l.id in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations)
+  and p.paid = 't' and p.void = 'f' and p.refunded = 'f';
+select count(*) from listings l
+  where l.id not in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+select count(*) from listings l
+  where l.id in (
+  select l.id from listings l join listing_metadata lm on l.id = lm.listing_id 
+  where lm.key = 'recommended_price' 
+    and l.monthly_price >= 0.9*(cast(lm.value as bigint)) 
+    and l.monthly_price <= 1.1*(cast(lm.value as bigint))
+) 
+  and l.status = 'Published' 
+  and l.user_id not in (
+    select user_id from user_metadata where key = 'account_type'
+  ) 
+  and l.id in (select listing_id from reservations);
+\q
+\x
+\d paymanet_job_payment_attemps;
+\d payment_job_payment_attemps;
+\d payment_job_payment_attempts;
+\s payments
