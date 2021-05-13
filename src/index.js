@@ -3,4 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const lang = { species: 'Species', age: 'Age', notes: 'Notes' }
+
+ReactDOM.render(<App lang={lang} />, document.getElementById("root"));

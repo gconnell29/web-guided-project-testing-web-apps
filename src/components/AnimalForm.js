@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AnimalForm = ({ errors, touched, values }) => {
+const AnimalForm = ({ lang }) => {
   const [animals, setAnimals] = useState([
     {
       species: "Lion",
@@ -28,21 +28,21 @@ const AnimalForm = ({ errors, touched, values }) => {
   return (
     <div className="animal-form">
       <form onSubmit={event => handleSubmit(event)}>
-        <label htmlFor="species">Species:</label>
+        <label htmlFor="species">{lang.species}:</label>
         <input
           id="species"
           type="text"
           name="species"
           onChange={event => handleChange(event)}
         />
-        <label htmlFor="age">Age:</label>
+        <label htmlFor="age">{lang.age}:</label>
         <input
           id="age"
           type="text"
           name="age"
           onChange={event => handleChange(event)}
         />
-        <label htmlFor="notes">Notes:</label>
+        <label htmlFor="notes">{lang.notes}:</label>
         <textarea
           id="notes"
           type="text"
